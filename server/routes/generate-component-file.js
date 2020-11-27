@@ -20,7 +20,7 @@ router.post(
 
 		fs.writeFile(
 			"./server/generated/" + req.body.mainComponentName + ".js",
-			compiledTemplate({ name: req.body.mainComponentName }),
+			compiledTemplate(req.body),
 			function (err) {
 				if (err) {
 					console.error("Failed", err);
