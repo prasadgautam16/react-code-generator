@@ -1,0 +1,9 @@
+<{{this.name}} {{>elementProperties this.properties}}>
+    {{#each this.properties}}
+    {{#if this.value}}
+    {{#if (comparingTwoValues this.name 'text')}}
+    {{this.value}}
+    {{/if}}
+    {{/if}}
+    {{/each}}
+</{{this.name}}>

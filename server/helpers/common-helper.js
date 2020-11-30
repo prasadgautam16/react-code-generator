@@ -19,4 +19,7 @@ module.exports = {
 			})
 			.join("");
 	},
+	comparingTwoValues: (actualValue, expectedValue) => {
+		return actualValue === expectedValue;
+	},
 };

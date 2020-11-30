@@ -1,0 +1,11 @@
+{{#each this}}
+{{#if this.value}}
+{{#unless (comparingTwoValues this.name 'text')}}
+{{#if (comparingTwoValues this.label 'Custom Style')}}
+{{this.name}}={ {{{this.value}}} }
+{{else}}
+{{this.name}}="{{{this.value}}}"
+{{/if}}
+{{/unless}}
+{{/if}}
+{{/each}}

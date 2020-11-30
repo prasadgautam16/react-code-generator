@@ -1,21 +1,21 @@
 /** @format */
 
 const generateComponentHBSInstance = require("handlebars");
+const {
+	pascalCase,
+	comparingTwoValues,
+} = require("../../helpers/common-helper");
 
 generateComponentHBSInstance.registerHelper("pascalCase", (str) => {
-	return str
-		.split(" ")
-		.map((e) => e[0].toUpperCase() + e.slice(1).toLowerCase())
-		.join("");
+	return pascalCase(str);
 });
 
-generateComponentHBSInstance.registerHelper("isCustomStyle", function (value) {
-	return value === "Custom Style";
-});
-
-generateComponentHBSInstance.registerHelper("nameAsText", function (value) {
-	return value === "text";
-});
+generateComponentHBSInstance.registerHelper(
+	"comparingTwoValues",
+	(actualValue, expectedValue) => {
+		return comparingTwoValues(actualValue, expectedValue);
+	}
+);
 
 generateComponentHBSInstance.registerHelper("simpleElement", function (value) {
 	return value ? "selfClosingElement" : "notSelfClosingElement";
@@ -23,28 +23,27 @@ generateComponentHBSInstance.registerHelper("simpleElement", function (value) {
 
 generateComponentHBSInstance.registerPartial(
 	"elementProperties",
-	'{{#each this}} {{#if this.value}} {{#unless (nameAsText this.name)}} {{#if (isCustomStyle this.label)}} {{this.name}}={ {{{this.value}}} } {{else}} {{this.name}}="{{{this.value}}}" {{/if}} {{/unless}} {{/if}} {{/each}}'
+	require("../../template/generate-component/partials/element-properties.hbs")
 );
 
-//please don't put spacing for this will create {" "} or use ~
 generateComponentHBSInstance.registerPartial(
 	"elementControls",
-	"{{#each this}}{{#if this.isContainer}}{{>containerElement this}}{{else}}{{>(simpleElement this.isSelfClosing) this}}{{/if}}{{/each}}"
+	require("../../template/generate-component/partials/element-controls.hbs")
 );
 
 generateComponentHBSInstance.registerPartial(
 	"selfClosingElement",
-	"<{{this.name}} {{>elementProperties this.properties}} />"
+	require("../../template/generate-component/partials/self-closing-element.hbs")
 );
 
 generateComponentHBSInstance.registerPartial(
 	"notSelfClosingElement",
-	"<{{this.name}} {{>elementProperties this.properties}}>{{#each this.properties}}{{~#if this.value}}{{#if (nameAsText this.name)}}{{this.value}}{{/if}}{{/if}}{{/each}}</{{this.name}}>"
+	require("../../template/generate-component/partials/not-self-closing-element.hbs")
 );
 
 generateComponentHBSInstance.registerPartial(
 	"containerElement",
-	"<{{this.name}} {{>elementProperties this.properties}}>{{>elementControls controls}}</{{this.name}}>"
+	require("../../template/generate-component/partials/container-element.hbs")
 );
 
 const generateComponentTemplate = require("../../template/generate-component/generate-component.js.hbs");

@@ -1,0 +1,7 @@
+{{#each this}}
+{{#if this.isContainer}}
+{{>containerElement this}}
+{{else}}
+{{>(simpleElement this.isSelfClosing) this}}
+{{/if}}
+{{/each}}
