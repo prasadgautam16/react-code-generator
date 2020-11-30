@@ -2,17 +2,19 @@
 
 const express = require("express");
 const router = express.Router();
-const config = require("config");
 
+const fs = require("fs");
+const config = require("config");
 const { validationResult } = require("express-validator");
 const { generateComponentCheck } = require("./generate-component-validator");
-const fs = require("fs");
-const { pascalCase } = require("./generate-component-helper");
-const Handlebars = require("../handlebars");
 
-const componentTemplate = require("../template/template.js.hbs");
+const { pascalCase } = require("../../helpers/common-helper");
+const {
+	generateComponentHBSInstance,
+	generateComponentTemplate,
+} = require("./generate-component-handlebars-instance");
 
-router.post("/generateComponentFile", generateComponentCheck, (req, res) => {
+router.post("/", generateComponentCheck, (req, res) => {
 	try {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -20,7 +22,7 @@ router.post("/generateComponentFile", generateComponentCheck, (req, res) => {
 		}
 		fs.writeFileSync(
 			config.get("generatedPath") + pascalCase(req.body.name) + ".js",
-			componentTemplate(req.body)
+			generateComponentTemplate(req.body)
 		);
 		res.send("generate component js");
 	} catch (error) {
