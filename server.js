@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 });
 
 //Define routes
-app.use("/api", require("./server/routes/generate-component-file"));
+app.use("/api", require("./server/routes/generate-component"));
 const PORT = process.env.PORT || 7000;
 
 app.listen(PORT, () => {
