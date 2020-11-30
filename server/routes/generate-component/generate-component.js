@@ -20,11 +20,12 @@ router.post("/", generateComponentCheck, (req, res) => {
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		}
-		fs.writeFileSync(
-			config.get("generatedPath") + pascalCase(req.body.name) + ".js",
-			generateComponentTemplate(req.body)
-		);
-		res.send("generate component js");
+		const componentName = pascalCase(req.body.name);
+		const componentPath = config.get("generatedPath") + componentName + ".js";
+
+		fs.writeFileSync(componentPath, generateComponentTemplate(req.body));
+
+		res.send(`generate ${componentName}.js at path ${componentPath}`);
 	} catch (error) {
 		return res.status(400).json({ errors: error });
 	}
