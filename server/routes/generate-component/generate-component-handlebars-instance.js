@@ -1,47 +1,32 @@
 /** @format */
 
-const generateComponentHBSInstance = require("handlebars");
-const {
-	pascalCase,
-	comparingTwoValues,
-} = require("../../helpers/common-helper");
+const generateComponentHbsInstance = require("../../helpers/common-handlebars-instance");
 
-generateComponentHBSInstance.registerHelper("pascalCase", (str) => {
-	return pascalCase(str);
-});
-
-generateComponentHBSInstance.registerHelper(
-	"comparingTwoValues",
-	(actualValue, expectedValue) => {
-		return comparingTwoValues(actualValue, expectedValue);
-	}
-);
-
-generateComponentHBSInstance.registerHelper("simpleElement", function (value) {
+generateComponentHbsInstance.registerHelper("simpleElement", function (value) {
 	return value ? "selfClosingElement" : "notSelfClosingElement";
 });
 
-generateComponentHBSInstance.registerPartial(
+generateComponentHbsInstance.registerPartial(
 	"elementProperties",
 	require("../../template/generate-component/partials/element-properties.hbs")
 );
 
-generateComponentHBSInstance.registerPartial(
+generateComponentHbsInstance.registerPartial(
 	"elementControls",
 	require("../../template/generate-component/partials/element-controls.hbs")
 );
 
-generateComponentHBSInstance.registerPartial(
+generateComponentHbsInstance.registerPartial(
 	"selfClosingElement",
 	require("../../template/generate-component/partials/self-closing-element.hbs")
 );
 
-generateComponentHBSInstance.registerPartial(
+generateComponentHbsInstance.registerPartial(
 	"notSelfClosingElement",
 	require("../../template/generate-component/partials/not-self-closing-element.hbs")
 );
 
-generateComponentHBSInstance.registerPartial(
+generateComponentHbsInstance.registerPartial(
 	"containerElement",
 	require("../../template/generate-component/partials/container-element.hbs")
 );
@@ -49,6 +34,6 @@ generateComponentHBSInstance.registerPartial(
 const generateComponentTemplate = require("../../template/generate-component/generate-component.js.hbs");
 
 module.exports = {
-	generateComponentHBSInstance,
+	generateComponentHbsInstance,
 	generateComponentTemplate,
 };
