@@ -15,7 +15,6 @@
   "dependencies": {
     "config": "^3.3.2",
     "express": "^4.17.1",
-    "express-validator": "^6.6.1",
     "fs": "0.0.1-security",
     "handlebars": "^4.7.6"
   },
